@@ -8,7 +8,6 @@ import { getProviders } from "@/actions/providers";
 import { ContentLayout } from "@/components/ui";
 import { SearchParamsProps } from "@/types";
 
-import { ensureRegionFilter } from "./_overview/_lib/ensure-region-filter";
 import { AccountsSelector } from "./_overview/_components/accounts-selector";
 import { ProviderTypeSelector } from "./_overview/_components/provider-type-selector";
 import {
@@ -75,10 +74,10 @@ export default async function Home({
           "filter[provider_type__in]": "aws",
         }
       : (resolvedSearchParams ?? {});
-  const effectiveSearchParams = ensureRegionFilter(
-    baseSearchParams,
-    targetRegion,
-  );
+  const effectiveSearchParams: SearchParamsProps = {
+    ...baseSearchParams,
+    "filter[region__in]": targetRegion,
+  };
 
   return (
     <ContentLayout title={t("title")} icon="lucide:square-chart-gantt">
