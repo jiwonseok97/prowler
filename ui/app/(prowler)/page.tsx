@@ -1,9 +1,6 @@
 import { Suspense } from "react";
 import { getTranslations } from "next-intl/server";
 
-import {
-  getPipelinePublishLatestState,
-} from "@/actions/pipeline-publish/pipeline-publish";
 import { getProviders } from "@/actions/providers";
 import { ContentLayout } from "@/components/ui";
 import { SearchParamsProps } from "@/types";
@@ -45,8 +42,6 @@ export default async function Home({
   const resolvedSearchParams = await searchParams;
   const t = await getTranslations("overview");
   const providersData = await getProviders({ page: 1, pageSize: 200 });
-  const pipelinePublishState = await getPipelinePublishLatestState();
-  const latestPipelineUpload = pipelinePublishState?.latestUpload;
   const DEFAULT_REGION = "ap-northeast-2";
 
   // Auto-inject pipeline account filter when the user has not manually selected
@@ -55,22 +50,12 @@ export default async function Home({
     resolvedSearchParams?.["filter[provider_id__in]"] ||
     resolvedSearchParams?.["filter[provider_type__in]"];
 
-  // Fall back to baseline_scan account_id when the latest event (rescan_verify) has an empty one
-  const pipelineAccountId =
-    latestPipelineUpload?.meta?.account_id ||
-    pipelinePublishState?.events?.["baseline_scan"]?.meta?.account_id;
   const targetRegion = DEFAULT_REGION;
-  const pipelineProviderId = pipelineAccountId
-    ? (providersData?.data ?? []).find(
-        (p) => p.attributes.uid === pipelineAccountId,
-      )?.id
-    : undefined;
 
   const baseSearchParams: SearchParamsProps =
-    !hasUserFilter && pipelineProviderId
+    !hasUserFilter
       ? {
           ...resolvedSearchParams,
-          "filter[provider_id__in]": pipelineProviderId,
           "filter[provider_type__in]": "aws",
         }
       : (resolvedSearchParams ?? {});
@@ -90,21 +75,18 @@ export default async function Home({
         <Suspense fallback={<ThreatScoreSkeleton />}>
           <ThreatScoreSSR
             searchParams={effectiveSearchParams}
-            pipelineState={pipelinePublishState}
           />
         </Suspense>
 
         <Suspense fallback={<StatusChartSkeleton />}>
           <CheckFindingsSSR
             searchParams={effectiveSearchParams}
-            pipelineState={pipelinePublishState}
           />
         </Suspense>
 
         <Suspense fallback={<RiskSeverityChartSkeleton />}>
           <RiskSeverityChartSSR
             searchParams={effectiveSearchParams}
-            pipelineState={pipelinePublishState}
           />
         </Suspense>
       </div>
@@ -113,7 +95,6 @@ export default async function Home({
         <Suspense fallback={<ResourcesInventorySkeleton />}>
           <ResourcesInventorySSR
             searchParams={effectiveSearchParams}
-            pipelineState={pipelinePublishState}
           />
         </Suspense>
       </div>
