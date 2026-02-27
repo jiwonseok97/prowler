@@ -20,19 +20,19 @@ const THREAT_COLORS = {
 
 const THREAT_LEVEL_CONFIG = {
   DANGER: {
-    label: "Critical Risk",
+    label: "치명적 위험",
     color: THREAT_COLORS.DANGER,
     minScore: 0,
     maxScore: 30,
   },
   WARNING: {
-    label: "Moderate Risk",
+    label: "중간 위험",
     color: THREAT_COLORS.WARNING,
     minScore: 31,
     maxScore: 60,
   },
   SUCCESS: {
-    label: "Secure",
+    label: "양호",
     color: THREAT_COLORS.SUCCESS,
     minScore: 61,
     maxScore: 100,
@@ -116,7 +116,7 @@ export function ThreatScore({
       className="flex min-h-[372px] w-full flex-col justify-between lg:max-w-[312px]"
     >
       <CardHeader>
-        <CardTitle>Prowler ThreatScore</CardTitle>
+        <CardTitle>Prowler 위협 점수</CardTitle>
       </CardHeader>
 
       <CardContent className="flex flex-1 flex-col justify-between space-y-4">
@@ -125,7 +125,7 @@ export function ThreatScore({
           <div className="absolute top-0 left-1/2 z-1 w-full -translate-x-1/2">
             <RadialChart
               percentage={displayScore}
-              label="Score"
+              label="점수"
               color={config.color}
               backgroundColor={THREAT_COLORS.NEUTRAL}
               height={206}
@@ -164,9 +164,8 @@ export function ThreatScore({
                       className="mt-0.5 min-h-4 min-w-4 shrink-0"
                     />
                     <p>
-                      Prowler ThreatScore has{" "}
-                      {scoreDelta > 0 ? "improved" : "decreased"} by{" "}
-                      {Math.abs(scoreDelta)}%
+                      Prowler 위협 점수가 {Math.abs(scoreDelta)}%{" "}
+                      {scoreDelta > 0 ? "개선" : "하락"}했습니다
                     </p>
                   </div>
                 )}
@@ -179,8 +178,8 @@ export function ThreatScore({
                     className="mt-0.5 min-h-4 min-w-4 shrink-0"
                   />
                   <p>
-                    Major gaps include {gaps.slice(0, 2).join(", ")}
-                    {gaps.length > 2 && ` & ${gaps.length - 2} more...`}
+                    주요 취약 구간: {gaps.slice(0, 2).join(", ")}
+                    {gaps.length > 2 && ` 외 ${gaps.length - 2}개`}
                   </p>
                 </div>
               )}
@@ -193,7 +192,7 @@ export function ThreatScore({
             className="items-center justify-center"
           >
             <p className="text-text-neutral-secondary text-sm">
-              Prowler ThreatScore Data Unavailable
+              Prowler 위협 점수 데이터를 불러올 수 없습니다
             </p>
           </Card>
         )}

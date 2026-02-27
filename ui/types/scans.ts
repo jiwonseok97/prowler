@@ -29,6 +29,7 @@ export interface ScanAttributes {
   name: string;
   trigger: ScanTrigger;
   state: ScanState;
+  has_report?: boolean;
   unique_resource_count: number;
   progress: number;
   scanner_args: ScannerArgs | null;

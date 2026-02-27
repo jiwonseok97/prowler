@@ -27,7 +27,7 @@ export function DataTableRowActions<ScanProps>({
   const [isEditOpen, setIsEditOpen] = useState(false);
   const scanId = (row.original as { id: string }).id;
   const scanName = (row.original as any).attributes?.name;
-  const scanState = (row.original as any).attributes?.state;
+  const hasReport = (row.original as any).attributes?.has_report;
 
   return (
     <>
@@ -54,9 +54,9 @@ export function DataTableRowActions<ScanProps>({
           <ActionDropdownItem
             icon={<Download />}
             label="Download .zip"
-            description="Available only for completed scans"
+            description="Available once a report is uploaded"
             onSelect={() => downloadScanZip(scanId, toast)}
-            disabled={scanState !== "completed"}
+            disabled={!hasReport}
           />
           <ActionDropdownItem
             icon={<Pencil />}

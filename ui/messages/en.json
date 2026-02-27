@@ -1,0 +1,114 @@
+{
+  "common": {
+    "navigationButton": "Navigation button",
+    "launchScan": "Launch Scan",
+    "serviceStatus": "Service Status"
+  },
+  "sidebar": {
+    "overview": "Overview",
+    "compliance": "Compliance",
+    "lighthouseAi": "Lighthouse AI",
+    "attackPaths": "Attack Paths",
+    "findings": "Findings",
+    "resources": "Resources",
+    "configuration": "Configuration",
+    "cloudProviders": "Cloud Providers",
+    "mutelist": "Mutelist",
+    "providerGroups": "Provider Groups",
+    "scanJobs": "Scan Jobs",
+    "integrations": "Integrations",
+    "roles": "Roles",
+    "organization": "Organization",
+    "users": "Users",
+    "invitations": "Invitations",
+    "supportHelp": "Support & Help",
+    "documentation": "Documentation",
+    "apiReference": "API reference",
+    "customerSupport": "Customer Support",
+    "communitySupport": "Community Support",
+    "prowlerHub": "Prowler Hub",
+    "prowlerHubTooltip": "Looking for all available checks? learn more."
+  },
+  "overview": {
+    "title": "Overview",
+    "pipelineUpload": {
+      "none": "Pipeline upload: none",
+      "noHistory": "No uploads yet",
+      "latestUpload": "Latest Upload",
+      "baseline": "Baseline Upload",
+      "rescan": "Rescan Upload",
+      "pipeline": "Pipeline Upload",
+      "reduced": "reduced"
+    },
+    "filters": {
+      "allProviders": "All providers",
+      "allAccounts": "All accounts",
+      "selectAll": "Select All",
+      "noConnectedProviders": "No connected providers available",
+      "noConnectedAccounts": "No connected accounts available",
+      "noAccountsForSelectedProviders": "No accounts available for selected providers",
+      "providersSelected": "{count} providers selected",
+      "accountsSelected": "{count} accounts selected"
+    },
+    "cards": {
+      "threatScore": "Prowler ThreatScore",
+      "threatScoreUnavailable": "Prowler ThreatScore Data Unavailable",
+      "threatScoreImproved": "Prowler ThreatScore has improved by {value}%",
+      "threatScoreDecreased": "Prowler ThreatScore has decreased by {value}%",
+      "majorGaps": "Major gaps include {gaps}",
+      "majorGapsMore": "Major gaps include {gaps} & {count} more...",
+      "threatLevelCritical": "Critical Risk",
+      "threatLevelModerate": "Moderate Risk",
+      "threatLevelSecure": "Secure",
+      "score": "Score",
+      "checkFindings": "Check Findings",
+      "totalFindings": "Total Findings",
+      "failFindings": "Fail Findings",
+      "passFindings": "Pass Findings",
+      "new": "New",
+      "noFailedFindings": "No failed findings to display",
+      "noPassedFindings": "No passed findings to display",
+      "riskSeverity": "Risk Severity",
+      "resourceInventory": "Resource Inventory",
+      "viewAllResources": "View All Resources",
+      "noResourceInventory": "No resource inventory data available.",
+      "noResultsToDisplay": "No findings to display"
+    },
+    "attackSurface": {
+      "title": "Attack Surface",
+      "empty": "No attack surface data available.",
+      "failedFindingsAria": "{label}: {count} failed findings"
+    },
+    "severityOverTime": {
+      "title": "Findings Severity Over Time",
+      "loadFailed": "Failed to load severity trends data",
+      "empty": "No severity trends data available"
+    },
+    "graphTabs": {
+      "findings": "New Findings",
+      "threat-map": "Threat Map",
+      "risk-radar": "Risk Radar",
+      "risk-pipeline": "Risk Pipeline",
+      "risk-plot": "Risk Plot"
+    },
+    "riskPipeline": {
+      "noFindingsForFilters": "No findings data available for the selected filters",
+      "noFailedFindingsForAccounts": "No failed findings for the selected accounts"
+    },
+    "chart": {
+      "critical": "Critical",
+      "high": "High",
+      "medium": "Medium",
+      "low": "Low",
+      "info": "Info",
+      "informational": "Informational",
+      "fail": "Fail",
+      "pass": "Pass",
+      "findings": "Findings",
+      "risk": "Risk",
+      "newFindings": "{count} New Findings",
+      "sinceLastScan": "{value}% Since last scan",
+      "noData": "No data"
+    }
+  }
+}

@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
+import { useTranslations } from "next-intl";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/shadcn";
 
@@ -13,6 +14,7 @@ interface GraphsTabsClientProps {
 export const GraphsTabsClient = ({ tabsContent }: GraphsTabsClientProps) => {
   const [activeTab, setActiveTab] = useState<TabId>("findings");
   const contentRef = useRef<HTMLDivElement>(null);
+  const t = useTranslations("overview.graphTabs");
 
   const handleValueChange = (value: string) => {
     setActiveTab(value as TabId);
@@ -39,7 +41,7 @@ export const GraphsTabsClient = ({ tabsContent }: GraphsTabsClientProps) => {
             value={tab.id}
             className="whitespace-nowrap"
           >
-            {tab.label}
+            {t(tab.id)}
           </TabsTrigger>
         ))}
       </TabsList>

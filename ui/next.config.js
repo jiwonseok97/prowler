@@ -2,6 +2,8 @@ const dotenv = require("dotenv");
 const dotenvExpand = require("dotenv-expand");
 dotenvExpand.expand(dotenv.config({ path: "../.env", quiet: true }));
 const { withSentryConfig } = require("@sentry/nextjs");
+const createNextIntlPlugin = require("next-intl/plugin");
+const withNextIntl = createNextIntlPlugin("./i18n/request.ts");
 
 /** @type {import('next').NextConfig} */
 
@@ -92,6 +94,8 @@ const sentryWebpackPluginOptions = {
 };
 
 // Export with Sentry only if configuration is available
+const configuredNext = withNextIntl(nextConfig);
+
 module.exports = process.env.SENTRY_DSN
-  ? withSentryConfig(nextConfig, sentryWebpackPluginOptions)
-  : nextConfig;
+  ? withSentryConfig(configuredNext, sentryWebpackPluginOptions)
+  : configuredNext;

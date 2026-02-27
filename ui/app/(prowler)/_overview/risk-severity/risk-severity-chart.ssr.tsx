@@ -1,15 +1,39 @@
 import { getFindingsBySeverity } from "@/actions/overview";
 
 import { pickFilterParams } from "../_lib/filter-params";
+import { getRegionFilter, pickPipelineSummary } from "../_lib/pipeline-summary";
 import { SSRComponentProps } from "../_types";
 import { RiskSeverityChart } from "./_components/risk-severity-chart";
 
 export const RiskSeverityChartSSR = async ({
   searchParams,
+  pipelineState,
 }: SSRComponentProps) => {
   const filters = pickFilterParams(searchParams);
+  const targetRegion = getRegionFilter(searchParams);
+  const pipelineSummary = pickPipelineSummary(pipelineState, targetRegion);
   // Filter by FAIL findings
   filters["filter[status]"] = "FAIL";
+
+  if (pipelineSummary?.severity) {
+    const {
+      critical = 0,
+      high = 0,
+      medium = 0,
+      low = 0,
+      informational = 0,
+    } = pipelineSummary.severity;
+
+    return (
+      <RiskSeverityChart
+        critical={critical}
+        high={high}
+        medium={medium}
+        low={low}
+        informational={informational}
+      />
+    );
+  }
 
   const findingsBySeverity = await getFindingsBySeverity({ filters });
 

@@ -213,12 +213,13 @@ def display_summary_table(
 
 
 def add_service_to_table(findings_table, current):
-    if (
+    is_fail = (
         current["Critical"] > 0
         or current["High"] > 0
         or current["Medium"] > 0
         or current["Low"] > 0
-    ):
+    )
+    if is_fail:
         total_fails = (
             current["Critical"] + current["High"] + current["Medium"] + current["Low"]
         )
@@ -230,11 +231,15 @@ def add_service_to_table(findings_table, current):
     findings_table["Service"].append(current["Service"])
     findings_table["Status"].append(current["Status"])
     findings_table["Critical"].append(
-        f"{Fore.LIGHTRED_EX}{current['Critical']}{Style.RESET_ALL}"
+        f"{Fore.LIGHTRED_EX}{current['Critical']}{Style.RESET_ALL}" if is_fail else "-"
     )
-    findings_table["High"].append(f"{Fore.RED}{current['High']}{Style.RESET_ALL}")
+    findings_table["High"].append(
+        f"{Fore.RED}{current['High']}{Style.RESET_ALL}" if is_fail else "-"
+    )
     findings_table["Medium"].append(
-        f"{Fore.YELLOW}{current['Medium']}{Style.RESET_ALL}"
+        f"{Fore.YELLOW}{current['Medium']}{Style.RESET_ALL}" if is_fail else "-"
     )
-    findings_table["Low"].append(f"{Fore.BLUE}{current['Low']}{Style.RESET_ALL}")
+    findings_table["Low"].append(
+        f"{Fore.BLUE}{current['Low']}{Style.RESET_ALL}" if is_fail else "-"
+    )
     findings_table["Muted"].append(f"{orange_color}{current['Muted']}{Style.RESET_ALL}")

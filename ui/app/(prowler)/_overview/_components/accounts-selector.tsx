@@ -107,14 +107,14 @@ export function AccountsSelector({ providers }: AccountsSelectorProps) {
       return <span className="truncate">{name}</span>;
     }
     return (
-      <span className="truncate">{selectedIds.length} accounts selected</span>
+      <span className="truncate">{selectedIds.length}개 계정 선택됨</span>
     );
   };
 
   const filterDescription =
     selectedTypesList.length > 0
-      ? `Showing accounts for ${selectedTypesList.join(", ")} providers`
-      : "All connected cloud provider accounts";
+      ? `선택한 제공자(${selectedTypesList.join(", ")})의 계정 표시`
+      : "연결된 모든 클라우드 계정";
 
   return (
     <div className="relative">
@@ -123,15 +123,14 @@ export function AccountsSelector({ providers }: AccountsSelectorProps) {
         className="sr-only"
         id="accounts-label"
       >
-        Filter by cloud provider account. {filterDescription}. Select one or
-        more accounts to view findings.
+        클라우드 계정으로 필터링합니다. {filterDescription}. 하나 이상 선택해 결과를 확인하세요.
       </label>
       <MultiSelect values={selectedIds} onValuesChange={handleMultiValueChange}>
         <MultiSelectTrigger
           id="accounts-selector"
           aria-labelledby="accounts-label"
         >
-          {selectedLabel() || <MultiSelectValue placeholder="All accounts" />}
+          {selectedLabel() || <MultiSelectValue placeholder="전체 계정" />}
         </MultiSelectTrigger>
         <MultiSelectContent search={false}>
           {visibleProviders.length > 0 ? (
@@ -139,7 +138,7 @@ export function AccountsSelector({ providers }: AccountsSelectorProps) {
               <div
                 role="option"
                 aria-selected={selectedIds.length === 0}
-                aria-label="Select all accounts (clears current selection to show all)"
+                aria-label="전체 계정 선택 (현재 선택 해제)"
                 tabIndex={0}
                 className="text-text-neutral-secondary flex w-full cursor-pointer items-center gap-3 rounded-lg px-4 py-3 text-sm font-semibold hover:bg-slate-200 dark:hover:bg-slate-700/50"
                 onClick={() => handleMultiValueChange([])}
@@ -150,7 +149,7 @@ export function AccountsSelector({ providers }: AccountsSelectorProps) {
                   }
                 }}
               >
-                Select All
+                전체 선택
               </div>
               {visibleProviders.map((p) => {
                 const id = p.id;
@@ -173,8 +172,8 @@ export function AccountsSelector({ providers }: AccountsSelectorProps) {
           ) : (
             <div className="px-3 py-2 text-sm text-slate-500 dark:text-slate-400">
               {selectedTypesList.length > 0
-                ? "No accounts available for selected providers"
-                : "No connected accounts available"}
+                ? "선택한 제공자에 표시할 계정이 없습니다"
+                : "연결된 계정이 없습니다"}
             </div>
           )}
         </MultiSelectContent>

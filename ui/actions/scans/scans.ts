@@ -264,6 +264,29 @@ export const updateScan = async (formData: FormData) => {
   }
 };
 
+export const deleteAllScans = async () => {
+  const headers = await getAuthHeaders({ contentType: false });
+  const url = new URL(`${apiBaseUrl}/scans/purge`);
+
+  try {
+    const response = await fetch(url.toString(), {
+      method: "DELETE",
+      headers,
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      return {
+        errors: errorData?.errors || [{ detail: "Failed to delete scans" }],
+      };
+    }
+
+    return response.json();
+  } catch (error) {
+    return handleApiError(error);
+  }
+};
+
 export const getExportsZip = async (scanId: string) => {
   const headers = await getAuthHeaders({ contentType: false });
 

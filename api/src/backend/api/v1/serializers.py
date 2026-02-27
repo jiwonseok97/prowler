@@ -993,6 +993,7 @@ class ScanSerializer(RLSSerializer):
         choices=Scan.TriggerChoices.choices, read_only=True
     )
     state = StateEnumSerializerField(read_only=True)
+    has_report = serializers.SerializerMethodField()
 
     class Meta:
         model = Scan
@@ -1001,6 +1002,7 @@ class ScanSerializer(RLSSerializer):
             "name",
             "trigger",
             "state",
+            "has_report",
             "unique_resource_count",
             "progress",
             # "scanner_args",
@@ -1020,12 +1022,16 @@ class ScanSerializer(RLSSerializer):
         "provider": "api.v1.serializers.ProviderIncludeSerializer",
     }
 
+    def get_has_report(self, obj):
+        return bool(getattr(obj, "output_location", None))
+
 
 class ScanIncludeSerializer(RLSSerializer):
     trigger = serializers.ChoiceField(
         choices=Scan.TriggerChoices.choices, read_only=True
     )
     state = StateEnumSerializerField(read_only=True)
+    has_report = serializers.SerializerMethodField()
 
     class Meta:
         model = Scan
@@ -1034,6 +1040,7 @@ class ScanIncludeSerializer(RLSSerializer):
             "name",
             "trigger",
             "state",
+            "has_report",
             "unique_resource_count",
             "progress",
             # "scanner_args",
@@ -1048,6 +1055,9 @@ class ScanIncludeSerializer(RLSSerializer):
     included_serializers = {
         "provider": "api.v1.serializers.ProviderIncludeSerializer",
     }
+
+    def get_has_report(self, obj):
+        return bool(getattr(obj, "output_location", None))
 
 
 class ScanCreateSerializer(RLSSerializer, BaseWriteSerializer):

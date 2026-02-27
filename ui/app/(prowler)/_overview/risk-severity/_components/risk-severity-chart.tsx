@@ -82,7 +82,7 @@ export const RiskSeverityChart = ({
       className="flex min-h-[372px] min-w-[312px] flex-1 flex-col md:min-w-[380px]"
     >
       <CardHeader>
-        <CardTitle>Risk Severity</CardTitle>
+        <CardTitle>위험도 분포</CardTitle>
       </CardHeader>
 
       <CardContent className="flex flex-1 items-center justify-start px-6">

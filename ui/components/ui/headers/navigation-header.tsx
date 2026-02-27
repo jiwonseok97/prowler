@@ -1,6 +1,7 @@
 import { Divider } from "@heroui/divider";
 import { Icon } from "@iconify/react";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 
 import { Button } from "@/components/shadcn";
 
@@ -15,12 +16,13 @@ export const NavigationHeader = ({
   icon,
   href,
 }: NavigationHeaderProps) => {
+  const t = useTranslations("common");
   return (
     <>
       <header className="flex items-center gap-3 border-b border-gray-200 px-6 py-4 dark:border-gray-800">
         <Button
           className="border-gray-200 bg-transparent p-0"
-          aria-label="Navigation button"
+          aria-label={t("navigationButton")}
           variant="outline"
           size="icon"
           asChild

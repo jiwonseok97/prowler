@@ -39,9 +39,9 @@ export const StatusChart = ({
     const params = new URLSearchParams(searchParams.toString());
 
     // Add status filter based on which segment was clicked
-    if (dataPoint.name === "Fail Findings") {
+    if (dataPoint.name === "실패 결과") {
       params.set("filter[status__in]", "FAIL");
-    } else if (dataPoint.name === "Pass Findings") {
+    } else if (dataPoint.name === "통과 결과") {
       params.set("filter[status__in]", "PASS");
     }
 
@@ -75,14 +75,14 @@ export const StatusChart = ({
   // Mock data for DonutChart
   const donutData: DonutDataPoint[] = [
     {
-      name: "Fail Findings",
+      name: "실패 결과",
       value: failFindingsData.total,
       color: "var(--bg-fail-primary)",
       percentage: Number(failPercentage),
       change: Number(failChange),
     },
     {
-      name: "Pass Findings",
+      name: "통과 결과",
       value: passFindingsData.total,
       color: "var(--bg-pass-primary)",
       percentage: Number(passPercentage),
@@ -96,7 +96,7 @@ export const StatusChart = ({
       className="flex min-h-[372px] min-w-[312px] flex-1 flex-col justify-between md:min-w-[380px]"
     >
       <CardHeader>
-        <CardTitle>Check Findings</CardTitle>
+        <CardTitle>점검 결과 현황</CardTitle>
       </CardHeader>
 
       <CardContent className="flex flex-1 flex-col justify-between space-y-4">
@@ -108,7 +108,7 @@ export const StatusChart = ({
             outerRadius={86}
             centerLabel={{
               value: totalFindings.toLocaleString(),
-              label: "Total Findings",
+              label: "전체 결과",
             }}
             onSegmentClick={handleSegmentClick}
           />
@@ -126,11 +126,11 @@ export const StatusChart = ({
               count: failFindingsData.total,
               variant: CardVariant.fail,
             }}
-            label="Fail Findings"
-            stats={[{ icon: Bell, label: `${failFindingsData.new} New` }]}
+            label="실패 결과"
+            stats={[{ icon: Bell, label: `${failFindingsData.new} 신규` }]}
             emptyState={
               failFindingsData.total === 0
-                ? { message: "No failed findings to display" }
+                ? { message: "표시할 실패 결과가 없습니다" }
                 : undefined
             }
             className="w-full lg:min-w-0 lg:flex-1"
@@ -147,11 +147,11 @@ export const StatusChart = ({
               count: passFindingsData.total,
               variant: CardVariant.pass,
             }}
-            label="Pass Findings"
-            stats={[{ icon: Bell, label: `${passFindingsData.new} New` }]}
+            label="통과 결과"
+            stats={[{ icon: Bell, label: `${passFindingsData.new} 신규` }]}
             emptyState={
               passFindingsData.total === 0
-                ? { message: "No passed findings to display" }
+                ? { message: "표시할 통과 결과가 없습니다" }
                 : undefined
             }
             className="w-full lg:min-w-0 lg:flex-1"

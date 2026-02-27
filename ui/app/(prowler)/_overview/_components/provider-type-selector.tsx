@@ -194,7 +194,7 @@ export const ProviderTypeSelector = ({
     }
     return (
       <span className="truncate">
-        {selectedTypes.length} providers selected
+        {selectedTypes.length}개 제공자 선택됨
       </span>
     );
   };
@@ -206,8 +206,7 @@ export const ProviderTypeSelector = ({
         className="sr-only"
         id="provider-type-label"
       >
-        Filter by cloud provider type. Select one or more providers to view
-        findings.
+        클라우드 제공자 유형으로 필터링합니다. 하나 이상 선택해 결과를 확인하세요.
       </label>
       <MultiSelect
         values={selectedTypes}
@@ -217,7 +216,7 @@ export const ProviderTypeSelector = ({
           id="provider-type-selector"
           aria-labelledby="provider-type-label"
         >
-          {selectedLabel() || <MultiSelectValue placeholder="All providers" />}
+          {selectedLabel() || <MultiSelectValue placeholder="전체 제공자" />}
         </MultiSelectTrigger>
         <MultiSelectContent search={false}>
           {availableTypes.length > 0 ? (
@@ -225,7 +224,7 @@ export const ProviderTypeSelector = ({
               <div
                 role="option"
                 aria-selected={selectedTypes.length === 0}
-                aria-label="Select all providers (clears current selection to show all)"
+                aria-label="전체 제공자 선택 (현재 선택 해제)"
                 tabIndex={0}
                 className="text-text-neutral-secondary flex w-full cursor-pointer items-center gap-3 rounded-lg px-4 py-3 text-sm font-semibold hover:bg-slate-200 dark:hover:bg-slate-700/50"
                 onClick={() => handleMultiValueChange([])}
@@ -236,7 +235,7 @@ export const ProviderTypeSelector = ({
                   }
                 }}
               >
-                Select All
+                전체 선택
               </div>
               {availableTypes.map((providerType) => (
                 <MultiSelectItem
@@ -252,7 +251,7 @@ export const ProviderTypeSelector = ({
             </>
           ) : (
             <div className="px-3 py-2 text-sm text-slate-500 dark:text-slate-400">
-              No connected providers available
+              연결된 제공자가 없습니다
             </div>
           )}
         </MultiSelectContent>

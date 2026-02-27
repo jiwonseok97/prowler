@@ -8,6 +8,7 @@ import { ReactNode } from "react";
 import { auth } from "@/auth.config";
 import { NavigationProgress, Toaster } from "@/components/ui";
 import { fontSans } from "@/config/fonts";
+import { getLocaleFromRequest, getMessagesForLocale } from "@/i18n";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib";
 
@@ -41,9 +42,11 @@ export default async function RootLayout({
   if (session?.user) {
     redirect("/");
   }
+  const locale = await getLocaleFromRequest();
+  const messages = getMessagesForLocale(locale);
 
   return (
-    <html suppressHydrationWarning lang="en">
+    <html suppressHydrationWarning lang={locale}>
       <head />
       <body
         suppressHydrationWarning
@@ -52,7 +55,11 @@ export default async function RootLayout({
           fontSans.variable,
         )}
       >
-        <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
+        <Providers
+          themeProps={{ attribute: "class", defaultTheme: "dark" }}
+          locale={locale}
+          messages={messages as Record<string, unknown>}
+        >
           <NavigationProgress />
           {children}
           <Toaster />

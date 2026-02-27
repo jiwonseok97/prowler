@@ -1,3 +1,4 @@
+import { getTranslations } from "next-intl/server";
 import { getSeverityTrendsByTimeRange } from "@/actions/overview/severity-trends";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/shadcn";
 
@@ -9,11 +10,11 @@ import { DEFAULT_TIME_RANGE } from "./_constants/time-range.constants";
 
 export { FindingSeverityOverTimeSkeleton };
 
-const EmptyState = ({ message }: { message: string }) => (
+const EmptyState = ({ title, message }: { title: string; message: string }) => (
   <Card variant="base" className="flex h-full min-h-[405px] flex-1 flex-col">
     <CardHeader className="flex flex-col gap-4">
       <div className="flex items-center justify-between">
-        <CardTitle>Findings Severity Over Time</CardTitle>
+        <CardTitle>{title}</CardTitle>
       </div>
     </CardHeader>
     <CardContent className="flex flex-1 items-center justify-center">
@@ -25,6 +26,7 @@ const EmptyState = ({ message }: { message: string }) => (
 export const FindingSeverityOverTimeSSR = async ({
   searchParams,
 }: SSRComponentProps) => {
+  const t = await getTranslations("overview.severityOverTime");
   const filters = pickFilterParams(searchParams);
 
   const result = await getSeverityTrendsByTimeRange({
@@ -33,18 +35,18 @@ export const FindingSeverityOverTimeSSR = async ({
   });
 
   if (result.status === "error") {
-    return <EmptyState message="Failed to load severity trends data" />;
+    return <EmptyState title={t("title")} message={t("loadFailed")} />;
   }
 
   if (result.status === "empty") {
-    return <EmptyState message="No severity trends data available" />;
+    return <EmptyState title={t("title")} message={t("empty")} />;
   }
 
   return (
     <Card variant="base" className="flex h-full flex-1 flex-col">
       <CardHeader className="flex flex-col gap-4">
         <div className="flex items-center justify-between">
-          <CardTitle>Findings Severity Over Time</CardTitle>
+          <CardTitle>{t("title")}</CardTitle>
         </div>
       </CardHeader>
 

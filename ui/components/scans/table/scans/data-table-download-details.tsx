@@ -15,7 +15,7 @@ export function DataTableDownloadDetails<ScanProps>({
   const [isDownloading, setIsDownloading] = useState(false);
 
   const scanId = (row.original as { id: string }).id;
-  const scanState = (row.original as any).attributes?.state;
+  const hasReport = (row.original as any).attributes?.has_report;
 
   const handleDownload = async () => {
     setIsDownloading(true);
@@ -28,7 +28,7 @@ export function DataTableDownloadDetails<ScanProps>({
       paramId={scanId}
       onDownload={handleDownload}
       isDownloading={isDownloading}
-      isDisabled={scanState !== "completed"}
+      isDisabled={!hasReport}
     />
   );
 }

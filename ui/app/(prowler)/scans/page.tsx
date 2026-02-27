@@ -7,6 +7,7 @@ import { MutedFindingsConfigButton } from "@/components/providers";
 import {
   NoProvidersAdded,
   NoProvidersConnected,
+  DeleteAllScansButton,
   ScansFilters,
 } from "@/components/scans";
 import { LaunchScanWorkflow } from "@/components/scans/launch-workflow";
@@ -91,8 +92,9 @@ export default async function Scans({
             providerUIDs={providerUIDs}
             providerDetails={providerDetails}
           />
-          <div className="flex items-center justify-end">
+          <div className="flex items-center justify-end gap-2">
             <MutedFindingsConfigButton />
+            {hasManageScansPermission ? <DeleteAllScansButton /> : null}
           </div>
           <Suspense fallback={<SkeletonTableScans />}>
             <SSRDataTableScans searchParams={resolvedSearchParams} />

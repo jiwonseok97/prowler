@@ -1,3 +1,4 @@
+import type { PipelinePublishLatestState } from "@/actions/pipeline-publish/pipeline-publish";
 import { SearchParamsProps } from "@/types";
 
 /**
@@ -6,4 +7,5 @@ import { SearchParamsProps } from "@/types";
  */
 export interface SSRComponentProps {
   searchParams: SearchParamsProps | undefined | null;
+  pipelineState?: PipelinePublishLatestState;
 }

@@ -86,7 +86,7 @@ const CustomTooltip = ({ active, payload }: CustomTooltipProps) => {
           <div className="flex items-start">
             <p className="text-text-neutral-primary text-xs leading-5 font-medium">
               {change > 0 ? "+" : ""}
-              {change}% Since last scan
+              {change}% (이전 스캔 대비)
             </p>
           </div>
         )}
@@ -139,7 +139,7 @@ export function DonutChart({
 
   const emptyData = [
     {
-      name: "No data",
+      name: "데이터 없음",
       value: 1,
       fill: CHART_COLORS.emptyState,
       color: CHART_COLORS.emptyState,
@@ -149,7 +149,7 @@ export function DonutChart({
   ];
 
   const legendPayload = (isEmpty ? emptyData : chartData).map((entry) => ({
-    value: isEmpty ? "No data" : entry.name,
+    value: isEmpty ? "데이터 없음" : entry.name,
     color: entry.color,
     payload: {
       percentage: isEmpty ? 0 : entry.percentage,
@@ -203,7 +203,7 @@ export function DonutChart({
                     const centerValue = centerLabel ? centerLabel.value : 0;
                     const centerText = centerLabel
                       ? centerLabel.label
-                      : "No data";
+                      : "데이터 없음";
                     const formattedValue =
                       typeof centerValue === "number"
                         ? centerValue.toLocaleString()

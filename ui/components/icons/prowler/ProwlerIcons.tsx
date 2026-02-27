@@ -2,57 +2,224 @@ import React from "react";
 
 import { IconSvgProps } from "../../../types/index";
 
-export const ProwlerExtended: React.FC<IconSvgProps> = ({
-  size,
-  width = 216,
-  height,
-  ...props
-}) => {
+/* ─────────────────────────────────────────────────────────────
+   Shared ALREADY11 brand mark – premium white 3-D isometric box
+   inside a glowing white hexagon ring
+───────────────────────────────────────────────────────────── */
+function A11Icon({ idPrefix }: { idPrefix: string }) {
+  const p = idPrefix;
   return (
-    <svg
-      className="text-prowler-black dark:text-prowler-white"
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 1233.67 204.4"
-      fill="none"
-      height={size || height}
-      width={size || width}
-      color="evenodd"
-      {...props}
-    >
-      <path
-        className="cls-1"
-        d="M1169.38 132.04c20.76-12.21 34.44-34.9 34.44-59.79 0-38.18-31.06-69.25-69.25-69.25l-216.9.23V148.4h-64.8V3h-79.95l-47.14 95.97V3h-52.09l-47.14 95.97V3h-53.48v69.6C560.37 30.64 521.34 0 475.28 0c-42.63 0-79.24 26.25-94.54 63.43C376.39 29.4 347.26 3 312.07 3H212.06v47.43C202.9 22.91 176.91 3 146.35 3H0l46.34 46.33v151.64h53.47v-76.68l17.21 17.21h29.33c30.56 0 56.54-19.91 65.71-47.43v106.91h53.48v-81.51l76.01 81.51h69.62l-64.29-68.94c11.14-6.56 20.22-16.15 26.26-27.46 1.27 55.26 46.58 99.82 102.14 99.82 46.06 0 85.09-30.64 97.81-72.6v69.18h60.88l38.34-78.06v78.06h60.88l66.2-134.78v135.69h95.41l22.86-22.86v22.86h95.05l21.84-21.84v20.93h53.48v-81.5l76.01 81.5h69.62l-64.29-68.94ZM146.35 88.02H99.81V56.48h46.54c8.7 0 15.77 7.07 15.77 15.77s-7.07 15.77-15.77 15.77Zm165.72 0-46.54-.18V56.48h46.54c8.7 0 15.77 7.07 15.77 15.77s-7.08 15.77-15.77 15.77Zm163.21 62.9c-26.86 0-48.72-21.86-48.72-48.72s21.86-48.72 48.72-48.72S524 75.34 524 102.2s-21.86 48.72-48.72 48.72Zm559.28-2.51h-63.41v-20.35h42.91V77.18h-42.91V56.72h63.41v91.69Zm100.01-60.39-46.54-.18V56.48h46.54c8.7 0 15.77 7.07 15.77 15.77s-7.07 15.77-15.77 15.77Z"
-        fill="currentColor"
-        fillRule="evenodd"
-        clipRule="evenodd"
+    <svg viewBox="0 0 88 88" xmlns="http://www.w3.org/2000/svg" overflow="visible">
+      <defs>
+        {/* ── 3D face gradients – all-white / silver palette ── */}
+        {/* Top face  → near-pure white (maximum light from upper-left) */}
+        <linearGradient id={`${p}tg`} x1="0%" y1="100%" x2="100%" y2="0%">
+          <stop offset="0%"   stopColor="#e8f4ff" />
+          <stop offset="100%" stopColor="#ffffff" />
+        </linearGradient>
+        {/* Front face → silver-white */}
+        <linearGradient id={`${p}fg`} x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%"   stopColor="#d4e8f8" />
+          <stop offset="100%" stopColor="#a8c4dc" />
+        </linearGradient>
+        {/* Left face  → deep shadow */}
+        <linearGradient id={`${p}lg`} x1="100%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%"   stopColor="#5a7090" />
+          <stop offset="100%" stopColor="#283848" />
+        </linearGradient>
+        {/* Inner hex background */}
+        <linearGradient id={`${p}ig`} x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%"   stopColor="#141c28" />
+          <stop offset="100%" stopColor="#0c1420" />
+        </linearGradient>
+        {/* Bar-divider shadow overlay */}
+        <linearGradient id={`${p}bs`} x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%"   stopColor="#080e18" stopOpacity="0.70" />
+          <stop offset="100%" stopColor="#080e18" stopOpacity="0.45" />
+        </linearGradient>
+        {/* Outer hex glow filter */}
+        <filter id={`${p}hg`} x="-20%" y="-20%" width="140%" height="140%">
+          <feGaussianBlur stdDeviation="2.5" result="b" />
+          <feMerge>
+            <feMergeNode in="b" />
+            <feMergeNode in="b" />
+            <feMergeNode in="SourceGraphic" />
+          </feMerge>
+        </filter>
+        {/* Front-face inner glow (shine stripe) */}
+        <linearGradient id={`${p}sh`} x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%"   stopColor="#ffffff" stopOpacity="0.35" />
+          <stop offset="40%"  stopColor="#ffffff" stopOpacity="0.10" />
+          <stop offset="100%" stopColor="#ffffff" stopOpacity="0" />
+        </linearGradient>
+      </defs>
+
+      {/* ── outer hex ring – pure white glow ── */}
+      <polygon
+        points="81,44 62,76 26,76 7,44 26,12 62,12"
+        fill="none"
+        stroke="#ffffff"
+        strokeWidth="2.6"
+        filter={`url(#${p}hg)`}
       />
+
+      {/* ── inner hex dark fill ── */}
+      <polygon
+        points="76,44 60,72 28,72 12,44 28,16 60,16"
+        fill={`url(#${p}ig)`}
+      />
+
+      {/* ── 3D isometric box ── */}
+      {/* Left face (shadow) */}
+      <polygon points="28,24 28,66 16,58 16,32" fill={`url(#${p}lg)`} />
+      {/* Top face (highlight – brightest) */}
+      <polygon points="28,24 56,24 68,16 40,16" fill={`url(#${p}tg)`} />
+      {/* Front face */}
+      <rect x="28" y="24" width="28" height="42" fill={`url(#${p}fg)`} />
+      {/* Shine stripe on front */}
+      <rect x="28" y="24" width="28" height="42" fill={`url(#${p}sh)`} />
+
+      {/* ── vertical bar dividers ── */}
+      <rect x="32"   y="24" width="4.5" height="42" fill={`url(#${p}bs)`} />
+      <rect x="39.5" y="24" width="4.5" height="42" fill={`url(#${p}bs)`} />
+      <rect x="47"   y="24" width="4.5" height="42" fill={`url(#${p}bs)`} />
+
+      {/* ── right dark micro-panel ── */}
+      <rect x="52" y="36" width="4" height="16" rx="0.8"
+        fill="#0a1420" opacity="0.95" />
+
+      {/* ── +/– symbols (right of hex) ── */}
+      {/* top + */}
+      <line x1="68" y1="26" x2="68" y2="35"
+        stroke="white" strokeWidth="2.2" strokeLinecap="round" />
+      <line x1="63.5" y1="30.5" x2="72.5" y2="30.5"
+        stroke="white" strokeWidth="2.2" strokeLinecap="round" />
+      {/* middle – */}
+      <line x1="63.5" y1="44" x2="72.5" y2="44"
+        stroke="white" strokeWidth="2.2" strokeLinecap="round" />
+      {/* bottom + */}
+      <line x1="68" y1="51" x2="68" y2="60"
+        stroke="white" strokeWidth="2.2" strokeLinecap="round" />
+      <line x1="63.5" y1="55.5" x2="72.5" y2="55.5"
+        stroke="white" strokeWidth="2.2" strokeLinecap="round" />
+
+      {/* ── sharp edge highlights ── */}
+      <line x1="28" y1="24" x2="56" y2="24"
+        stroke="#ffffff" strokeWidth="1.0" opacity="0.85" />
+      <line x1="28" y1="24" x2="28" y2="66"
+        stroke="#ffffff" strokeWidth="0.8" opacity="0.50" />
+      <line x1="28" y1="24" x2="40" y2="16"
+        stroke="#ffffff" strokeWidth="0.9" opacity="0.70" />
+      {/* bottom front edge */}
+      <line x1="28" y1="66" x2="56" y2="66"
+        stroke="#c0d8f0" strokeWidth="0.7" opacity="0.40" />
     </svg>
   );
-};
+}
 
-export const ProwlerShort: React.FC<IconSvgProps> = ({
+/* ─────────────────────────────────────────────
+   ProwlerExtended  (sidebar open – icon + text)
+───────────────────────────────────────────── */
+export const ProwlerExtended: React.FC<IconSvgProps> = ({
   size,
-  width = 30,
+  width = 248,
   height,
   ...props
 }) => (
   <svg
-    className="text-prowler-black dark:text-prowler-white"
     xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 432.08 396.77"
+    viewBox="0 0 306 68"
     fill="none"
     height={size || height}
     width={size || width}
-    color="evenodd"
     {...props}
   >
-    <path
-      className="cls-1"
-      d="M293.3.01H0s92.87,92.85,92.87,92.85v303.9h107.17v-153.68l34.48,34.49h58.78c76.52,0,138.78-62.26,138.78-138.78S369.82.01,293.3.01ZM293.3,170.4h-93.27v-63.21h93.27c17.43,0,31.6,14.18,31.6,31.6s-14.18,31.6-31.6,31.6Z"
-      fill="currentColor"
-      fillRule="evenodd"
-      clipRule="evenodd"
-      color="evenodd"
-    />
+    <defs>
+      <radialGradient id="a11ext-glow" cx="10%" cy="50%" r="60%" fx="10%" fy="50%">
+        <stop offset="0%"   stopColor="#ffffff" stopOpacity="0.18" />
+        <stop offset="55%"  stopColor="#ffffff" stopOpacity="0.04" />
+        <stop offset="100%" stopColor="#ffffff" stopOpacity="0" />
+      </radialGradient>
+      {/* premium white-to-silver text gradient */}
+      <linearGradient id="a11ext-txt-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%"   stopColor="#ffffff" />
+        <stop offset="60%"  stopColor="#e8f2ff" />
+        <stop offset="100%" stopColor="#c0d4ec" />
+      </linearGradient>
+      {/* text glow filter */}
+      <filter id="a11ext-txt-glow" x="-5%" y="-30%" width="110%" height="160%">
+        <feGaussianBlur stdDeviation="1.5" result="b" />
+        <feMerge>
+          <feMergeNode in="b" />
+          <feMergeNode in="SourceGraphic" />
+        </feMerge>
+      </filter>
+      <style>{`
+        .a11e-root { cursor: pointer; }
+        .a11e-bg   { opacity: 0; transition: opacity 0.4s ease; }
+        .a11e-root:hover .a11e-bg { opacity: 1; }
+        .a11e-icon { transition: filter 0.4s ease; }
+        .a11e-root:hover .a11e-icon {
+          filter: drop-shadow(0 0 8px rgba(255,255,255,0.45));
+        }
+      `}</style>
+    </defs>
+
+    <g className="a11e-root">
+      <rect className="a11e-bg" x="0" y="0" width="306" height="68" rx="8"
+        fill="url(#a11ext-glow)" />
+
+      <g className="a11e-icon">
+        <svg x="0" y="4" width="60" height="60" viewBox="0 0 88 88">
+          <A11Icon idPrefix="ext" />
+        </svg>
+      </g>
+
+      {/* premium white gradient text */}
+      <text
+        x="68" y="44"
+        fontSize="34"
+        fontWeight="900"
+        fontFamily="'Arial Black','Franklin Gothic Heavy','Impact',system-ui,sans-serif"
+        letterSpacing="0.5"
+        fill="url(#a11ext-txt-grad)"
+        filter="url(#a11ext-txt-glow)"
+      >
+        ALREADY11
+      </text>
+    </g>
+  </svg>
+);
+
+/* ─────────────────────────────────────────────
+   ProwlerShort  (sidebar collapsed – icon only)
+───────────────────────────────────────────── */
+export const ProwlerShort: React.FC<IconSvgProps> = ({
+  size,
+  width = 58,
+  height,
+  ...props
+}) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 68 68"
+    fill="none"
+    height={size || height}
+    width={size || width}
+    {...props}
+  >
+    <defs>
+      <style>{`
+        .a11s-wrap { cursor: pointer; transition: filter 0.35s ease; }
+        .a11s-wrap:hover {
+          filter: drop-shadow(0 0 10px rgba(255,255,255,0.5));
+        }
+      `}</style>
+    </defs>
+    <g className="a11s-wrap">
+      <svg x="4" y="4" width="60" height="60" viewBox="0 0 88 88">
+        <A11Icon idPrefix="sht" />
+      </svg>
+    </g>
   </svg>
 );

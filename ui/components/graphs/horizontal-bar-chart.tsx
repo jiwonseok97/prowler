@@ -16,6 +16,19 @@ interface HorizontalBarChartProps {
   onBarClick?: (dataPoint: BarDataPoint, index: number) => void;
 }
 
+const DISPLAY_LABEL_MAP: Record<string, string> = {
+  Critical: "치명적",
+  High: "높음",
+  Medium: "보통",
+  Low: "낮음",
+  Informational: "정보",
+  Info: "정보",
+  Fail: "실패",
+  Pass: "통과",
+};
+
+const toDisplayLabel = (name: string) => DISPLAY_LABEL_MAP[name] || name;
+
 export function HorizontalBarChart({
   data,
   title,
@@ -111,7 +124,9 @@ export function HorizontalBarChart({
                   }}
                   title={item.name}
                 >
-                  {item.name === "Informational" ? "Info" : item.name}
+                  {toDisplayLabel(
+                    item.name === "Informational" ? "Info" : item.name,
+                  )}
                 </span>
               </div>
 
@@ -140,10 +155,12 @@ export function HorizontalBarChart({
                         />
                         <p className="text-text-neutral-primary text-xs leading-5 font-medium">
                           {item.value.toLocaleString()}{" "}
-                          {item.name === "Informational" ? "Info" : item.name}{" "}
+                          {toDisplayLabel(
+                            item.name === "Informational" ? "Info" : item.name,
+                          )}{" "}
                           {item.name === "Fail" || item.name === "Pass"
-                            ? "Findings"
-                            : "Risk"}
+                            ? "결과"
+                            : "위험"}
                         </p>
                       </div>
 
@@ -155,7 +172,7 @@ export function HorizontalBarChart({
                             className="text-text-neutral-secondary shrink-0"
                           />
                           <p className="text-text-neutral-secondary text-xs leading-5 font-medium">
-                            {item.newFindings} New Findings
+                            {item.newFindings} 신규 결과
                           </p>
                         </div>
                       )}
@@ -165,7 +182,7 @@ export function HorizontalBarChart({
                         <div className="flex items-start">
                           <p className="text-text-neutral-secondary text-xs leading-5 font-medium">
                             {item.change > 0 ? "+" : ""}
-                            {item.change}% Since last scan
+                            {item.change}% (이전 스캔 대비)
                           </p>
                         </div>
                       )}

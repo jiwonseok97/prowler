@@ -49,6 +49,11 @@ from api.v1.views import (
     UserRoleRelationshipView,
     UserViewSet,
 )
+from api.v1.pipeline_publish_views import (
+    PipelinePublishEventAPIView,
+    PipelinePublishLatestAPIView,
+    PipelinePublishScanOutputAPIView,
+)
 
 
 @csrf_exempt
@@ -117,6 +122,21 @@ integrations_router.register(
 )
 
 urlpatterns = [
+    path(
+        "pipeline-publish/events",
+        PipelinePublishEventAPIView.as_view(),
+        name="pipeline-publish-events",
+    ),
+    path(
+        "pipeline-publish/latest",
+        PipelinePublishLatestAPIView.as_view(),
+        name="pipeline-publish-latest",
+    ),
+    path(
+        "pipeline-publish/scan-output",
+        PipelinePublishScanOutputAPIView.as_view(),
+        name="pipeline-publish-scan-output",
+    ),
     path("tokens", CustomTokenObtainView.as_view(), name="token-obtain"),
     path("tokens/refresh", CustomTokenRefreshView.as_view(), name="token-refresh"),
     path("tokens/switch", CustomTokenSwitchTenantView.as_view(), name="token-switch"),

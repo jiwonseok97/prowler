@@ -1,0 +1,114 @@
+{
+  "common": {
+    "navigationButton": "탐색 버튼",
+    "launchScan": "스캔 시작",
+    "serviceStatus": "서비스 상태"
+  },
+  "sidebar": {
+    "overview": "개요",
+    "compliance": "컴플라이언스",
+    "lighthouseAi": "Lighthouse AI",
+    "attackPaths": "공격 경로",
+    "findings": "취약점 결과",
+    "resources": "리소스",
+    "configuration": "설정",
+    "cloudProviders": "클라우드 프로바이더",
+    "mutelist": "뮤트 목록",
+    "providerGroups": "프로바이더 그룹",
+    "scanJobs": "스캔 작업",
+    "integrations": "연동",
+    "roles": "역할",
+    "organization": "조직",
+    "users": "사용자",
+    "invitations": "초대",
+    "supportHelp": "지원 및 도움말",
+    "documentation": "문서",
+    "apiReference": "API 문서",
+    "customerSupport": "고객 지원",
+    "communitySupport": "커뮤니티 지원",
+    "prowlerHub": "Prowler Hub",
+    "prowlerHubTooltip": "전체 체크 목록을 찾고 있나요? 자세히 보기"
+  },
+  "overview": {
+    "title": "개요",
+    "pipelineUpload": {
+      "none": "파이프라인 업로드: 없음",
+      "noHistory": "업로드 이력 없음",
+      "latestUpload": "최신 업로드",
+      "baseline": "기준선 업로드",
+      "rescan": "재검증 업로드",
+      "pipeline": "파이프라인 업로드",
+      "reduced": "감소"
+    },
+    "filters": {
+      "allProviders": "전체 제공자",
+      "allAccounts": "전체 계정",
+      "selectAll": "전체 선택",
+      "noConnectedProviders": "연결된 제공자가 없습니다",
+      "noConnectedAccounts": "연결된 계정이 없습니다",
+      "noAccountsForSelectedProviders": "선택한 제공자에 표시할 계정이 없습니다",
+      "providersSelected": "{count}개 제공자 선택됨",
+      "accountsSelected": "{count}개 계정 선택됨"
+    },
+    "cards": {
+      "threatScore": "Prowler 위협 점수",
+      "threatScoreUnavailable": "Prowler 위협 점수 데이터를 불러올 수 없습니다",
+      "threatScoreImproved": "Prowler 위협 점수가 {value}% 개선되었습니다",
+      "threatScoreDecreased": "Prowler 위협 점수가 {value}% 하락했습니다",
+      "majorGaps": "주요 취약 구간: {gaps}",
+      "majorGapsMore": "주요 취약 구간: {gaps} 외 {count}개",
+      "threatLevelCritical": "치명적 위험",
+      "threatLevelModerate": "중간 위험",
+      "threatLevelSecure": "양호",
+      "score": "점수",
+      "checkFindings": "점검 결과 현황",
+      "totalFindings": "전체 결과",
+      "failFindings": "실패 결과",
+      "passFindings": "통과 결과",
+      "new": "신규",
+      "noFailedFindings": "표시할 실패 결과가 없습니다",
+      "noPassedFindings": "표시할 통과 결과가 없습니다",
+      "riskSeverity": "위험도 분포",
+      "resourceInventory": "리소스 인벤토리",
+      "viewAllResources": "전체 리소스 보기",
+      "noResourceInventory": "리소스 인벤토리 데이터가 없습니다.",
+      "noResultsToDisplay": "표시할 결과가 없습니다"
+    },
+    "attackSurface": {
+      "title": "공격 표면",
+      "empty": "공격 표면 데이터가 없습니다.",
+      "failedFindingsAria": "{label}: 실패 결과 {count}건"
+    },
+    "severityOverTime": {
+      "title": "시간 경과별 취약점 심각도",
+      "loadFailed": "심각도 추이 데이터를 불러오지 못했습니다",
+      "empty": "심각도 추이 데이터가 없습니다"
+    },
+    "graphTabs": {
+      "findings": "신규 결과",
+      "threat-map": "위협 지도",
+      "risk-radar": "위험 레이더",
+      "risk-pipeline": "위험 파이프라인",
+      "risk-plot": "위험 분포도"
+    },
+    "riskPipeline": {
+      "noFindingsForFilters": "선택한 필터에 해당하는 결과 데이터가 없습니다",
+      "noFailedFindingsForAccounts": "선택한 계정에 실패 결과가 없습니다"
+    },
+    "chart": {
+      "critical": "치명적",
+      "high": "높음",
+      "medium": "보통",
+      "low": "낮음",
+      "info": "정보",
+      "informational": "정보",
+      "fail": "실패",
+      "pass": "통과",
+      "findings": "결과",
+      "risk": "위험",
+      "newFindings": "{count} 신규 결과",
+      "sinceLastScan": "{value}% (이전 스캔 대비)",
+      "noData": "데이터 없음"
+    }
+  }
+}

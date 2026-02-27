@@ -3,6 +3,7 @@
 import { Divider } from "@heroui/divider";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 import { AddIcon, InfoIcon } from "@/components/icons";
 import { Button } from "@/components/shadcn/button/button";
@@ -55,6 +56,8 @@ const filterMenus = (menuGroups: GroupProps[], labelsToHide: string[]) => {
 export const Menu = ({ isOpen }: { isOpen: boolean }) => {
   const pathname = usePathname();
   const { permissions } = useAuth();
+  const tSidebar = useTranslations("sidebar");
+  const tCommon = useTranslations("common");
 
   const menuList = getMenuList({
     pathname,
@@ -65,6 +68,51 @@ export const Menu = ({ isOpen }: { isOpen: boolean }) => {
   ).map((rule) => rule.label);
 
   const filteredMenuList = filterMenus(menuList, labelsToHide);
+  const translatedMenuList = filteredMenuList.map((group) => ({
+    ...group,
+    menus: group.menus.map((menu) => {
+      const translate = (label: string) =>
+        (
+          {
+            Overview: tSidebar("overview"),
+            Compliance: tSidebar("compliance"),
+            "Lighthouse AI": tSidebar("lighthouseAi"),
+            "Attack Paths": tSidebar("attackPaths"),
+            Findings: tSidebar("findings"),
+            Resources: tSidebar("resources"),
+            Configuration: tSidebar("configuration"),
+            "Cloud Providers": tSidebar("cloudProviders"),
+            Mutelist: tSidebar("mutelist"),
+            "Provider Groups": tSidebar("providerGroups"),
+            "Scan Jobs": tSidebar("scanJobs"),
+            Integrations: tSidebar("integrations"),
+            Roles: tSidebar("roles"),
+            Organization: tSidebar("organization"),
+            Users: tSidebar("users"),
+            Invitations: tSidebar("invitations"),
+            "Support & Help": tSidebar("supportHelp"),
+            Documentation: tSidebar("documentation"),
+            "API reference": tSidebar("apiReference"),
+            "Customer Support": tSidebar("customerSupport"),
+            "Community Support": tSidebar("communitySupport"),
+            "Prowler Hub": tSidebar("prowlerHub"),
+          } as Record<string, string>
+        )[label] ?? label;
+
+      return {
+        ...menu,
+        label: translate(menu.label),
+        tooltip:
+          menu.tooltip === "Looking for all available checks? learn more."
+            ? tSidebar("prowlerHubTooltip")
+            : menu.tooltip,
+        submenus: menu.submenus?.map((submenu) => ({
+          ...submenu,
+          label: translate(submenu.label),
+        })),
+      };
+    }),
+  }));
 
   return (
     <div className="flex h-full flex-col overflow-hidden">
@@ -78,12 +126,14 @@ export const Menu = ({ isOpen }: { isOpen: boolean }) => {
               variant="default"
               size="default"
             >
-              <Link href="/scans" aria-label="Launch Scan">
-                {isOpen ? "Launch Scan" : <AddIcon className="size-5" />}
+              <Link href="/scans" aria-label={tCommon("launchScan")}>
+                {isOpen ? tCommon("launchScan") : <AddIcon className="size-5" />}
               </Link>
             </Button>
           </TooltipTrigger>
-          {!isOpen && <TooltipContent side="right">Launch Scan</TooltipContent>}
+          {!isOpen && (
+            <TooltipContent side="right">{tCommon("launchScan")}</TooltipContent>
+          )}
         </Tooltip>
       </div>
 
@@ -92,7 +142,7 @@ export const Menu = ({ isOpen }: { isOpen: boolean }) => {
         <ScrollArea className="h-full [&>div>div[style]]:block!">
           <nav className="mt-2 w-full lg:mt-6">
             <ul className="mx-2 flex flex-col items-start gap-1 pb-4">
-              {filteredMenuList.map((group, groupIndex) => (
+              {translatedMenuList.map((group, groupIndex) => (
                 <li key={groupIndex} className="w-full">
                   {group.menus.map((menu, menuIndex) => (
                     <div key={menuIndex} className="w-full">
@@ -141,7 +191,7 @@ export const Menu = ({ isOpen }: { isOpen: boolean }) => {
                 >
                   <InfoIcon size={16} />
                   <span className="text-muted-foreground font-normal opacity-80 transition-opacity hover:font-bold hover:opacity-100">
-                    Service Status
+                    {tCommon("serviceStatus")}
                   </span>
                 </Link>
               </>
@@ -160,7 +210,9 @@ export const Menu = ({ isOpen }: { isOpen: boolean }) => {
                   <InfoIcon size={16} />
                 </Link>
               </TooltipTrigger>
-              <TooltipContent side="right">Service Status</TooltipContent>
+              <TooltipContent side="right">
+                {tCommon("serviceStatus")}
+              </TooltipContent>
             </Tooltip>
           )
         )}

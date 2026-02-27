@@ -45,7 +45,7 @@ export function ResourcesInventoryCardItem({
   if (hasFailedFindings && item.newFailedFindings > 0) {
     stats.push({
       icon: Bell,
-      label: `${item.newFailedFindings} New`,
+      label: `${item.newFailedFindings} 신규`,
     });
   }
 
@@ -59,7 +59,7 @@ export function ResourcesInventoryCardItem({
           resourceCount: item.totalResources,
         }}
         emptyState={{
-          message: "No Findings to display",
+          message: "표시할 결과가 없습니다",
         }}
         className="flex-1"
       />
@@ -81,7 +81,7 @@ export function ResourcesInventoryCardItem({
         count: item.failedFindings,
         variant: CardVariant.fail,
       }}
-      label="Fail Findings"
+      label="실패 결과"
       stats={stats}
       variant={hasFailedFindings ? CardVariant.fail : CardVariant.default}
       className={

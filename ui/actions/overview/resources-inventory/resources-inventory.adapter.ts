@@ -24,6 +24,7 @@ import {
   ResourceGroupOverviewResponse,
   SeverityBreakdown,
 } from "./types";
+import type { PipelineSummaryResourceInventoryItem } from "@/actions/pipeline-publish/pipeline-publish";
 
 // Resource group IDs matching API values from ResourceGroup field specification
 export const RESOURCE_GROUP_IDS = {
@@ -244,6 +245,33 @@ export function getEmptyResourceInventoryItems(): ResourceInventoryItem[] {
         high: 0,
         critical: 0,
       },
+    };
+  });
+}
+
+export function adaptPipelineResourceInventory(
+  items?: PipelineSummaryResourceInventoryItem[],
+): ResourceInventoryItem[] {
+  const emptyItems = getEmptyResourceInventoryItems();
+  if (!items || items.length === 0) {
+    return emptyItems;
+  }
+
+  const map = new Map<string, PipelineSummaryResourceInventoryItem>();
+  for (const item of items) {
+    map.set(item.id, item);
+  }
+
+  return emptyItems.map((item) => {
+    const summary = map.get(item.id);
+    if (!summary) return item;
+    return {
+      ...item,
+      totalResources: summary.resources_count,
+      totalFindings: summary.total_findings,
+      failedFindings: summary.failed_findings,
+      newFailedFindings: summary.new_failed_findings,
+      severity: summary.severity as SeverityBreakdown,
     };
   });
 }

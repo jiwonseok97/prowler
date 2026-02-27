@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import { AttackSurfaceItem } from "@/actions/overview";
 import { Card, CardContent, CardTitle } from "@/components/shadcn";
 
@@ -10,10 +11,11 @@ interface AttackSurfaceProps {
 
 export function AttackSurface({ items, filters }: AttackSurfaceProps) {
   const isEmpty = items.length === 0;
+  const t = useTranslations("overview.attackSurface");
 
   return (
     <Card variant="base" className="flex w-full flex-col">
-      <CardTitle>Attack Surface</CardTitle>
+      <CardTitle>{t("title")}</CardTitle>
       <CardContent className="mt-4 flex flex-wrap gap-4">
         {isEmpty ? (
           <div
@@ -21,7 +23,7 @@ export function AttackSurface({ items, filters }: AttackSurfaceProps) {
             role="status"
           >
             <p className="text-text-neutral-tertiary text-sm">
-              No attack surface data available.
+              {t("empty")}
             </p>
           </div>
         ) : (

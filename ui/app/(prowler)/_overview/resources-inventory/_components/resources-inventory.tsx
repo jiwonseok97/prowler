@@ -34,12 +34,12 @@ export function ResourcesInventory({
   return (
     <Card variant="base" className="flex w-full flex-col">
       <div className="flex w-full items-center justify-between">
-        <CardTitle>Resource Inventory</CardTitle>
+        <CardTitle>리소스 인벤토리</CardTitle>
         <Link
           href="/resources"
           className="text-button-tertiary hover:text-button-tertiary-hover text-sm font-medium transition-colors"
         >
-          View All Resources
+          전체 리소스 보기
         </Link>
       </div>
       <CardContent className="mt-4 flex flex-col gap-3">
@@ -49,7 +49,7 @@ export function ResourcesInventory({
             role="status"
           >
             <p className="text-text-neutral-tertiary text-sm">
-              No resource inventory data available.
+              리소스 인벤토리 데이터가 없습니다.
             </p>
           </div>
         ) : (

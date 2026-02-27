@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 
 import { AttackSurfaceItem } from "@/actions/overview";
@@ -12,6 +13,7 @@ export function AttackSurfaceCardItem({
   item,
   filters = {},
 }: AttackSurfaceCardItemProps) {
+  const t = useTranslations("overview.attackSurface");
   // Build URL with current filters + attack surface specific filters
   const buildFindingsUrl = () => {
     const params = new URLSearchParams();
@@ -47,7 +49,10 @@ export function AttackSurfaceCardItem({
       variant="inner"
       padding="md"
       className={`flex min-h-[120px] min-w-[200px] flex-1 flex-col justify-between ${getCardStyles()}`}
-      aria-label={`${item.label}: ${item.failedFindings} failed findings`}
+      aria-label={t("failedFindingsAria", {
+        label: item.label,
+        count: item.failedFindings,
+      })}
     >
       <CardContent className="flex flex-col gap-2 p-0">
         <span

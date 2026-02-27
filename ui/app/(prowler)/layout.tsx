@@ -9,6 +9,7 @@ import MainLayout from "@/components/ui/main-layout/main-layout";
 import { NavigationProgress } from "@/components/ui/navigation-progress";
 import { Toaster } from "@/components/ui/toast";
 import { fontSans } from "@/config/fonts";
+import { getLocaleFromRequest, getMessagesForLocale } from "@/i18n";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
 import { StoreInitializer } from "@/store/ui/store-initializer";
@@ -43,9 +44,11 @@ export default async function RootLayout({
 }) {
   const providersData = await getProviders({ page: 1, pageSize: 1 });
   const hasProviders = !!(providersData?.data && providersData.data.length > 0);
+  const locale = await getLocaleFromRequest();
+  const messages = getMessagesForLocale(locale);
 
   return (
-    <html suppressHydrationWarning lang="en">
+    <html suppressHydrationWarning lang={locale}>
       <head />
       <body
         suppressHydrationWarning
@@ -54,7 +57,11 @@ export default async function RootLayout({
           fontSans.variable,
         )}
       >
-        <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
+        <Providers
+          themeProps={{ attribute: "class", defaultTheme: "dark" }}
+          locale={locale}
+          messages={messages as Record<string, unknown>}
+        >
           <NavigationProgress />
           <StoreInitializer values={{ hasProviders }} />
           <MainLayout>{children}</MainLayout>

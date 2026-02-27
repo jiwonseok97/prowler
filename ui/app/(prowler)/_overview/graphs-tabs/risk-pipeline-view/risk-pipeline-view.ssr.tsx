@@ -1,3 +1,4 @@
+import { getTranslations } from "next-intl/server";
 import {
   adaptToSankeyData,
   getFindingsBySeverity,
@@ -14,6 +15,7 @@ export async function RiskPipelineViewSSR({
 }: {
   searchParams: SearchParamsProps;
 }) {
+  const t = await getTranslations("overview.riskPipeline");
   const filters = pickFilterParams(searchParams);
 
   const providerTypeFilter = filters["filter[provider_type__in]"];
@@ -131,7 +133,7 @@ export async function RiskPipelineViewSSR({
     return (
       <div className="flex h-[460px] w-full items-center justify-center">
         <p className="text-text-neutral-tertiary text-sm">
-          No findings data available for the selected filters
+          {t("noFindingsForFilters")}
         </p>
       </div>
     );
@@ -143,7 +145,7 @@ export async function RiskPipelineViewSSR({
       <div className="flex h-[460px] w-full items-center justify-center">
         <div className="text-center">
           <p className="text-text-neutral-tertiary mb-4 text-sm">
-            No failed findings for the selected accounts
+            {t("noFailedFindingsForAccounts")}
           </p>
           <SankeyChart
             data={sankeyData}

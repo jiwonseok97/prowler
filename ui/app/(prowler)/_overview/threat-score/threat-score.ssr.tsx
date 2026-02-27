@@ -1,11 +1,27 @@
 import { getThreatScore } from "@/actions/overview";
 
 import { pickFilterParams } from "../_lib/filter-params";
+import { getRegionFilter, pickPipelineSummary } from "../_lib/pipeline-summary";
 import { SSRComponentProps } from "../_types";
 import { ThreatScore } from "./_components/threat-score";
 
-export const ThreatScoreSSR = async ({ searchParams }: SSRComponentProps) => {
+export const ThreatScoreSSR = async ({
+  searchParams,
+  pipelineState,
+}: SSRComponentProps) => {
   const filters = pickFilterParams(searchParams);
+  const targetRegion = getRegionFilter(searchParams);
+  const pipelineSummary = pickPipelineSummary(pipelineState, targetRegion);
+
+  if (pipelineSummary?.threat_score !== undefined) {
+    return (
+      <ThreatScore
+        score={pipelineSummary.threat_score ?? undefined}
+        scoreDelta={pipelineSummary.threat_score_delta ?? null}
+      />
+    );
+  }
+
   const threatScoreData = await getThreatScore({ filters });
 
   // If no data, pass undefined score and let component handle empty state

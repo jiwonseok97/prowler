@@ -100,6 +100,7 @@ from api.attack_paths import get_queries_for_provider, get_query_by_id
 from api.attack_paths import views_helpers as attack_paths_views_helpers
 from api.base_views import BaseRLSViewSet, BaseTenantViewset, BaseUserViewset
 from api.renderers import APIJSONRenderer, PlainTextRenderer
+from api.scan_bridge import trigger_external_scan_bridge
 from api.compliance import (
     PROWLER_COMPLIANCE_OVERVIEW_TEMPLATE,
     get_compliance_frameworks,
@@ -1799,7 +1800,7 @@ class ProviderViewSet(DisablePaginationMixin, BaseRLSViewSet):
 class ScanViewSet(BaseRLSViewSet):
     queryset = Scan.objects.all()
     serializer_class = ScanSerializer
-    http_method_names = ["get", "post", "patch"]
+    http_method_names = ["get", "post", "patch", "delete"]
     filterset_class = ScanFilter
     ordering = ["-inserted_at"]
     ordering_fields = [
@@ -1877,6 +1878,24 @@ class ScanViewSet(BaseRLSViewSet):
             instance, context=self.get_serializer_context()
         )
         return Response(data=read_serializer.data, status=status.HTTP_200_OK)
+
+    @action(detail=False, methods=["delete"], url_path="purge")
+    def purge(self, request):
+        scans_queryset = self.get_queryset()
+        scan_ids = list(scans_queryset.values_list("id", flat=True))
+
+        if not scan_ids:
+            return Response({"deleted": {"scans": 0}}, status=status.HTTP_200_OK)
+
+        deleted = {"resource_scan_summaries": 0, "scans": 0}
+        with transaction.atomic():
+            deleted["resource_scan_summaries"] = ResourceScanSummary.objects.filter(
+                tenant_id=request.tenant_id,
+                scan_id__in=scan_ids,
+            ).delete()[0]
+            deleted["scans"] = scans_queryset.delete()[0]
+
+        return Response({"deleted": deleted}, status=status.HTTP_200_OK)
 
     def _get_task_status(self, scan_instance):
         """
@@ -2282,6 +2301,8 @@ class ScanViewSet(BaseRLSViewSet):
             scan_id=str(scan.id),
             provider_id=str(scan.provider_id),
         )
+        # Optional bridge hook: allows external pipeline trigger when a scan is launched from UI.
+        trigger_external_scan_bridge(scan=scan, tenant_id=self.request.tenant_id)
 
         prowler_task = Task.objects.get(id=task.id)
         scan.task_id = task.id
