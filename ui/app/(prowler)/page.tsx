@@ -10,7 +10,6 @@ import { SearchParamsProps } from "@/types";
 
 import { ensureRegionFilter } from "./_overview/_lib/ensure-region-filter";
 import { AccountsSelector } from "./_overview/_components/accounts-selector";
-import { PipelineLatestUploadBadge } from "./_overview/_components/pipeline-latest-upload-badge";
 import { ProviderTypeSelector } from "./_overview/_components/provider-type-selector";
 import {
   AttackSurfaceSkeleton,
@@ -83,10 +82,6 @@ export default async function Home({
 
   return (
     <ContentLayout title={t("title")} icon="lucide:square-chart-gantt">
-      <div className="mb-3 flex justify-end">
-        <PipelineLatestUploadBadge latestUpload={latestPipelineUpload} />
-      </div>
-
       <div className="xxl:grid-cols-4 mb-6 grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
         <ProviderTypeSelector providers={providersData?.data ?? []} />
         <AccountsSelector providers={providersData?.data ?? []} />
