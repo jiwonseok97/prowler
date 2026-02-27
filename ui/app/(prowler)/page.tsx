@@ -1,5 +1,4 @@
 import { Suspense } from "react";
-import { getTranslations } from "next-intl/server";
 
 import { getProviders } from "@/actions/providers";
 import { ContentLayout } from "@/components/ui";
@@ -40,7 +39,6 @@ export default async function Home({
   searchParams: Promise<SearchParamsProps>;
 }) {
   const resolvedSearchParams = await searchParams;
-  const t = await getTranslations("overview");
   const providersData = await getProviders({ page: 1, pageSize: 200 });
   const DEFAULT_REGION = "ap-northeast-2";
 
@@ -65,7 +63,7 @@ export default async function Home({
   };
 
   return (
-    <ContentLayout title={t("title")} icon="lucide:square-chart-gantt">
+    <ContentLayout title="Overview" icon="lucide:square-chart-gantt">
       <div className="xxl:grid-cols-4 mb-6 grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
         <ProviderTypeSelector providers={providersData?.data ?? []} />
         <AccountsSelector providers={providersData?.data ?? []} />
